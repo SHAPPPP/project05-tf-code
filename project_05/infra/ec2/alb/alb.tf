@@ -9,7 +9,7 @@ resource "aws_lb" "example" {
 }
 
 // 로드밸런스 리스너 - jenkins
-resource "aws_lb_listener" "jenkins_http" {
+resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.example.arn
   port              = 80
   protocol          = "HTTP"
@@ -19,7 +19,7 @@ resource "aws_lb_listener" "jenkins_http" {
 
     fixed_response {
       content_type = "text/plain"
-      message_body = "404: page not found"
+      message_body = "check the link"
       status_code  = 404
     }
   }
@@ -44,7 +44,7 @@ resource "aws_lb_listener_rule" "jenkins" {
 
 // 대상그룹 - Jenkins EC2
 resource "aws_lb_target_group" "jenkins" {
-  name        = "project05-jenkins"
+  name        = "project05-02-jenkins-tg"
   target_type = "instance"
   port        = var.http_port
   protocol    = "HTTP"
